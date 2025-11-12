@@ -44,7 +44,19 @@ This multi-layer system is fundamental to real VLSI design and allows engineers 
 
 ## Phase 2-6: Planned Features
 
-### Phase 2: Technology Parameters & Design Rules
+### Phase 2: Technology Parameters & Design Rules ⚡ IN PROGRESS
+**Status**: Basic design rules and measurements implemented
+
+**Implemented:**
+- Lambda (λ) unit system for scalable design
+- Design rule display (min width, spacing, grid)
+- Automatic measurements on selection
+- Width/Height in pixels and lambda units
+- Area calculation for rectangles
+- Length calculation for wires
+- Layer identification in measurements
+
+**Planned:**
 - Technology file support
 - Configurable design rules
 - Design Rule Checking (DRC) engine
@@ -56,11 +68,19 @@ This multi-layer system is fundamental to real VLSI design and allows engineers 
 - Parameterized cells (PCells)
 - Component browser
 
-### Phase 4: Measurement & Analysis Tools
-- Dimension measurement
+### Phase 4: Measurement & Analysis Tools ⚡ PARTIALLY IMPLEMENTED
+**Status**: Basic measurements complete
+
+**Implemented:**
+- Dimension measurement (width, height, length)
 - Area calculation
+- Lambda unit conversion
+- Layer identification
+
+**Planned:**
 - Cross-section view
 - Net connectivity verification
+- Advanced measurement tools
 
 ### Phase 5: Advanced Features
 - SPICE netlist extraction

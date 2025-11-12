@@ -167,6 +167,7 @@ class ModernMicrowind {
         // Grid size select
         document.getElementById('gridSize').addEventListener('change', (e) => {
             this.gridSize = parseInt(e.target.value);
+            this.updateLambdaDisplay();
             this.render();
             this.updateStatus();
         });
@@ -187,6 +188,7 @@ class ModernMicrowind {
         document.getElementById('gridSizeInput').addEventListener('change', (e) => {
             this.gridSize = parseInt(e.target.value);
             document.getElementById('gridSize').value = e.target.value;
+            this.updateLambdaDisplay();
             this.render();
             this.updateStatus();
         });
@@ -719,10 +721,40 @@ class ModernMicrowind {
 
     updateSelectionInfo() {
         const infoEl = document.getElementById('selectionInfo');
+        const measurementEl = document.getElementById('measurementInfo');
+        
         if (this.selectedShape) {
-            infoEl.textContent = `Selected: ${this.selectedShape.type}`;
+            const layer = this.getLayerById(this.selectedShape.layer);
+            const layerName = layer ? layer.name : 'Unknown';
+            infoEl.textContent = `Selected: ${this.selectedShape.type} (${layerName})`;
+            
+            // Show measurements
+            let measurements = '';
+            if (this.selectedShape.type === 'rectangle' || this.selectedShape.type === 'component') {
+                const widthLambda = (this.selectedShape.width / this.gridSize).toFixed(1);
+                const heightLambda = (this.selectedShape.height / this.gridSize).toFixed(1);
+                const area = this.selectedShape.width * this.selectedShape.height;
+                measurements = `Width: ${this.selectedShape.width}px (${widthLambda}λ)\n`;
+                measurements += `Height: ${this.selectedShape.height}px (${heightLambda}λ)\n`;
+                measurements += `Area: ${area}px²`;
+            } else if (this.selectedShape.type === 'wire') {
+                const dx = this.selectedShape.x2 - this.selectedShape.x1;
+                const dy = this.selectedShape.y2 - this.selectedShape.y1;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const lengthLambda = (length / this.gridSize).toFixed(1);
+                measurements = `Length: ${length.toFixed(1)}px (${lengthLambda}λ)`;
+            }
+            measurementEl.textContent = measurements;
         } else {
             infoEl.textContent = 'No selection';
+            measurementEl.textContent = '';
+        }
+    }
+
+    updateLambdaDisplay() {
+        const lambdaGridEl = document.getElementById('lambdaGrid');
+        if (lambdaGridEl) {
+            lambdaGridEl.textContent = `${this.gridSize}λ`;
         }
     }
 
