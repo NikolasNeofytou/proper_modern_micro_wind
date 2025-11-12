@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Microwind - Circuit Design Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Modern Microwind</h1>
+                <span class="version">v1.0.0</span>
+            </div>
+            <div class="header-right">
+                <button id="darkModeToggle" class="icon-btn" title="Toggle Dark Mode (Ctrl+D)">
+                    <span class="icon">🌙</span>
+                </button>
+                <button id="settingsBtn" class="icon-btn" title="Settings">
+                    <span class="icon">⚙️</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="tool-group">
+                <button id="selectTool" class="tool-btn active" title="Select Tool (V)">
+                    <span class="icon">↖️</span>
+                    <span class="label">Select</span>
+                </button>
+                <button id="rectTool" class="tool-btn" title="Rectangle (R)">
+                    <span class="icon">▭</span>
+                    <span class="label">Rectangle</span>
+                </button>
+                <button id="wireTool" class="tool-btn" title="Wire (W)">
+                    <span class="icon">⚡</span>
+                    <span class="label">Wire</span>
+                </button>
+                <button id="componentTool" class="tool-btn" title="Component (C)">
+                    <span class="icon">🔲</span>
+                    <span class="label">Component</span>
+                </button>
+            </div>
+            
+            <div class="tool-group">
+                <button id="undoBtn" class="tool-btn" title="Undo (Ctrl+Z)">
+                    <span class="icon">↶</span>
+                    <span class="label">Undo</span>
+                </button>
+                <button id="redoBtn" class="tool-btn" title="Redo (Ctrl+Y)">
+                    <span class="icon">↷</span>
+                    <span class="label">Redo</span>
+                </button>
+            </div>
+
+            <div class="tool-group">
+                <button id="gridToggle" class="tool-btn active" title="Toggle Grid (F7)">
+                    <span class="icon">▦</span>
+                    <span class="label">Grid</span>
+                </button>
+                <button id="snapToggle" class="tool-btn active" title="Toggle Snap (F9)">
+                    <span class="icon">🧲</span>
+                    <span class="label">Snap</span>
+                </button>
+                <select id="gridSize" class="grid-select" title="Grid Size">
+                    <option value="5">0.5mm</option>
+                    <option value="10" selected>1.0mm</option>
+                    <option value="20">2.0mm</option>
+                    <option value="50">5.0mm</option>
+                </select>
+            </div>
+
+            <div class="tool-group">
+                <button id="zoomIn" class="tool-btn" title="Zoom In (Ctrl++)">
+                    <span class="icon">🔍+</span>
+                </button>
+                <button id="zoomOut" class="tool-btn" title="Zoom Out (Ctrl+-)">
+                    <span class="icon">🔍-</span>
+                </button>
+                <button id="zoomFit" class="tool-btn" title="Fit to Screen (F)">
+                    <span class="icon">⛶</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Canvas Container -->
+            <div class="canvas-container" id="canvasContainer">
+                <canvas id="mainCanvas"></canvas>
+                <div id="cursorCoords" class="cursor-coords">X: 0.0, Y: 0.0</div>
+            </div>
+
+            <!-- Properties Panel -->
+            <aside class="properties-panel">
+                <h3>Properties</h3>
+                <div class="property-section">
+                    <h4>Grid Settings</h4>
+                    <label>
+                        <input type="checkbox" id="gridVisibleCheck" checked> Show Grid
+                    </label>
+                    <label>
+                        <input type="checkbox" id="snapEnabledCheck" checked> Snap to Grid
+                    </label>
+                    <label>
+                        Grid Size:
+                        <input type="number" id="gridSizeInput" value="10" min="1" max="100"> px
+                    </label>
+                </div>
+
+                <div class="property-section">
+                    <h4>Selection</h4>
+                    <div id="selectionInfo">No selection</div>
+                </div>
+
+                <div class="property-section">
+                    <h4>Shortcuts</h4>
+                    <div class="shortcuts-list">
+                        <div><kbd>F7</kbd> Toggle Grid</div>
+                        <div><kbd>F9</kbd> Toggle Snap</div>
+                        <div><kbd>Ctrl+Z</kbd> Undo</div>
+                        <div><kbd>Ctrl+Y</kbd> Redo</div>
+                        <div><kbd>Ctrl+C</kbd> Copy</div>
+                        <div><kbd>Ctrl+V</kbd> Paste</div>
+                        <div><kbd>Del</kbd> Delete</div>
+                        <div><kbd>V</kbd> Select Tool</div>
+                        <div><kbd>R</kbd> Rectangle</div>
+                        <div><kbd>W</kbd> Wire Tool</div>
+                        <div><kbd>C</kbd> Component</div>
+                        <div><kbd>Space</kbd> Pan Mode</div>
+                        <div><kbd>Arrows</kbd> Navigate</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-item">
+                <span id="statusMessage">Ready</span>
+            </div>
+            <div class="status-item">
+                <span id="zoomLevel">Zoom: 100%</span>
+            </div>
+            <div class="status-item">
+                <span id="gridInfo">Grid: 10px, Snap: On</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
