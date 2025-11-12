@@ -15,6 +15,17 @@ class ModernMicrowind {
         this.zoom = 1;
         this.panOffset = { x: 0, y: 0 };
         
+        // Layer Management - Standard CMOS/VLSI Layers
+        this.layers = [
+            { id: 'metal2', name: 'Metal 2', color: '#0080FF', visible: true, active: false, type: 'Interconnect' },
+            { id: 'metal1', name: 'Metal 1', color: '#4FC3F7', visible: true, active: false, type: 'Interconnect' },
+            { id: 'poly', name: 'Polysilicon', color: '#FF5722', visible: true, active: false, type: 'Gate' },
+            { id: 'ndiff', name: 'N-Diffusion', color: '#4CAF50', visible: true, active: false, type: 'Active' },
+            { id: 'pdiff', name: 'P-Diffusion', color: '#FFC107', visible: true, active: false, type: 'Active' },
+            { id: 'contact', name: 'Contact', color: '#9E9E9E', visible: true, active: false, type: 'Via' }
+        ];
+        this.activeLayer = 'metal1';
+        
         // State
         this.currentTool = 'select';
         this.isDrawing = false;
@@ -27,6 +38,7 @@ class ModernMicrowind {
         
         // Initialize
         this.setupCanvas();
+        this.setupLayers();
         this.setupEventListeners();
         this.setupKeyboardShortcuts();
         this.render();
@@ -47,6 +59,83 @@ class ModernMicrowind {
         this.ctx.scale(dpr, dpr);
         this.canvas.style.width = rect.width + 'px';
         this.canvas.style.height = rect.height + 'px';
+    }
+
+    setupLayers() {
+        // Build layer list UI
+        const layerList = document.getElementById('layerList');
+        layerList.innerHTML = '';
+        
+        this.layers.forEach((layer, index) => {
+            const layerItem = document.createElement('div');
+            layerItem.className = 'layer-item';
+            layerItem.dataset.layerId = layer.id;
+            
+            if (layer.id === this.activeLayer) {
+                layerItem.classList.add('active');
+                layer.active = true;
+            }
+            
+            layerItem.innerHTML = `
+                <input type="checkbox" class="layer-checkbox" ${layer.visible ? 'checked' : ''} data-layer="${layer.id}">
+                <div class="layer-color" style="background-color: ${layer.color}"></div>
+                <span class="layer-name">${layer.name}</span>
+                <span class="layer-type">${layer.type}</span>
+            `;
+            
+            // Click to set active layer
+            layerItem.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('layer-checkbox')) {
+                    this.setActiveLayer(layer.id);
+                }
+            });
+            
+            // Checkbox to toggle visibility
+            const checkbox = layerItem.querySelector('.layer-checkbox');
+            checkbox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleLayerVisibility(layer.id);
+            });
+            
+            layerList.appendChild(layerItem);
+        });
+    }
+
+    setActiveLayer(layerId) {
+        // Update active layer
+        this.activeLayer = layerId;
+        
+        // Update layer list UI
+        document.querySelectorAll('.layer-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.dataset.layerId === layerId) {
+                item.classList.add('active');
+            }
+        });
+        
+        // Update layers array
+        this.layers.forEach(layer => {
+            layer.active = (layer.id === layerId);
+        });
+        
+        this.updateStatus(`Active layer: ${this.getLayerById(layerId).name}`);
+    }
+
+    toggleLayerVisibility(layerId) {
+        const layer = this.getLayerById(layerId);
+        if (layer) {
+            layer.visible = !layer.visible;
+            this.render();
+        }
+    }
+
+    getLayerById(layerId) {
+        return this.layers.find(l => l.id === layerId);
+    }
+
+    getActiveLayerColor() {
+        const layer = this.getLayerById(this.activeLayer);
+        return layer ? layer.color : '#2196F3';
     }
 
     setupEventListeners() {
@@ -110,6 +199,15 @@ class ModernMicrowind {
 
     setupKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
+            // Layer switching with number keys (1-6)
+            if (!e.ctrlKey && !e.metaKey && e.key >= '1' && e.key <= '6') {
+                const layerIndex = parseInt(e.key) - 1;
+                if (layerIndex < this.layers.length) {
+                    this.setActiveLayer(this.layers[layerIndex].id);
+                }
+                return;
+            }
+            
             // Prevent default for shortcuts
             const shortcuts = {
                 'F7': () => { e.preventDefault(); this.toggleGrid(); },
@@ -231,7 +329,8 @@ class ModernMicrowind {
                 y: Math.min(this.startPoint.y, snappedPos.y),
                 width: Math.abs(snappedPos.x - this.startPoint.x),
                 height: Math.abs(snappedPos.y - this.startPoint.y),
-                color: '#2196F3'
+                color: this.getActiveLayerColor(),
+                layer: this.activeLayer
             });
         } else if (this.currentTool === 'wire') {
             this.addShape({
@@ -240,7 +339,8 @@ class ModernMicrowind {
                 y1: this.startPoint.y,
                 x2: snappedPos.x,
                 y2: snappedPos.y,
-                color: '#4CAF50'
+                color: this.getActiveLayerColor(),
+                layer: this.activeLayer
             });
         } else if (this.currentTool === 'component') {
             this.addShape({
@@ -249,7 +349,8 @@ class ModernMicrowind {
                 y: snappedPos.y - 20,
                 width: 40,
                 height: 40,
-                color: '#FF9800'
+                color: this.getActiveLayerColor(),
+                layer: this.activeLayer
             });
         }
 
@@ -508,9 +609,13 @@ class ModernMicrowind {
             this.drawGrid(ctx, rect);
         }
         
-        // Draw shapes
+        // Draw shapes (only visible layers)
         this.shapes.forEach(shape => {
-            this.drawShape(ctx, shape, shape === this.selectedShape);
+            // Check if shape's layer is visible
+            const layer = this.getLayerById(shape.layer);
+            if (!layer || layer.visible) {
+                this.drawShape(ctx, shape, shape === this.selectedShape);
+            }
         });
         
         // Restore context state

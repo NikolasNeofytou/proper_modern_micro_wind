@@ -6,7 +6,12 @@
    - Simply open `index.html` in your web browser
    - Works on Chrome, Firefox, Safari, or Edge
 
-2. **Draw Your First Shape**
+2. **Select a Layer (NEW!)**
+   - Look at the **Layers** panel on the right
+   - Metal 1 (blue) is selected by default
+   - Click any layer to make it active, or press number keys 1-6
+
+3. **Draw Your First Shape**
    - Press `R` for Rectangle tool (or click the Rectangle button)
    - Click and drag on the canvas to draw
    - The shape snaps to the grid automatically!
@@ -25,22 +30,29 @@
    - Grid helps align components precisely
    - Snap makes positioning effortless
 
-2. **Draw Component Blocks**
+2. **Select a Layer**
+   - Click **Polysilicon** in the Layers panel (or press 3)
+   - This will be your gate layer (appears red/orange)
+
+3. **Draw Component Blocks**
    - Press `R` for Rectangle tool
-   - Draw two rectangular blocks (these represent circuit components)
+   - Draw rectangular blocks for transistor gates
    - They automatically snap to grid points
 
-3. **Connect with Wires**
+4. **Switch to Metal Layer**
+   - Click **Metal 1** layer (or press 2) 
+   - The active layer changes to blue
+
+5. **Connect with Wires**
    - Press `W` for Wire tool
-   - Click and drag to create connections
+   - Click and drag to create metal interconnections
    - Wires snap to endpoints
 
-4. **Add Component Symbols**
-   - Press `C` for Component tool
-   - Click to place component symbols
-   - These appear as orange boxes with internal symbols
+6. **Toggle Layer Visibility**
+   - Click checkboxes in Layers panel to show/hide layers
+   - Useful for viewing specific layers in complex designs
 
-5. **Select and Modify**
+7. **Select and Modify**
    - Press `V` for Select tool
    - Click any shape to select it (turns orange)
    - Press `Del` to delete selected shape
@@ -112,6 +124,14 @@
 - `R` - Rectangle Tool
 - `W` - Wire Tool
 - `C` - Component Tool
+
+### Layers (NEW!)
+- `1` - Metal 2 Layer
+- `2` - Metal 1 Layer
+- `3` - Polysilicon Layer
+- `4` - N-Diffusion Layer
+- `5` - P-Diffusion Layer
+- `6` - Contact Layer
 
 ### View
 - `F7` - Toggle Grid

@@ -7,6 +7,17 @@ A modern, user-friendly web-based circuit design and layout tool inspired by Mic
 
 ## ✨ Features
 
+### 🔬 Professional VLSI Design (NEW!)
+- **Multi-Layer Design System**: Industry-standard CMOS fabrication layers
+  - Metal 2 & Metal 1 (Interconnect layers)
+  - Polysilicon (Gate layer)
+  - N-Diffusion & P-Diffusion (Active regions)
+  - Contact (Via layer)
+- **Layer Management**: Individual layer visibility control
+- **Color-Coded Layers**: Standard VLSI colors for each layer
+- **Active Layer Selection**: Click or use number keys (1-6) to switch layers
+- **Professional Workflow**: Design multi-layer integrated circuits
+
 ### 🎯 Enhanced Precision
 - **Snap-to-Grid System**: Configurable grid with adjustable spacing (0.5mm to 5.0mm)
 - **Visual Grid Display**: Toggle-able grid overlay for precise alignment
@@ -120,6 +131,12 @@ A modern, user-friendly web-based circuit design and layout tool inspired by Mic
 
 This application was built based on extensive research into:
 
+### Professional VLSI Design Requirements
+- Multi-layer IC design with standard CMOS layers
+- Layer management and visibility control
+- Industry-standard color schemes for fabrication layers
+- Professional electronics engineering workflows
+
 ### Microwind & CAD Best Practices
 - Integrated design environment following EDA principles
 - Real-time visual feedback during layout creation
@@ -161,15 +178,28 @@ This application was built based on extensive research into:
 
 ## 🎯 Key Improvements Over Traditional Microwind
 
-1. **Precision**: Snap-to-grid eliminates tedious mouse accuracy requirements
-2. **Speed**: Keyboard shortcuts for all common operations
-3. **Aesthetics**: Modern, clean interface with dark mode
-4. **Accessibility**: High contrast, clear labels, keyboard navigation
-5. **Responsiveness**: Works on any device, any screen size
-6. **User Feedback**: Real-time status updates and visual indicators
+1. **Multi-Layer Support**: Professional CMOS layer management for real IC design
+2. **Precision**: Snap-to-grid eliminates tedious mouse accuracy requirements
+3. **Speed**: Keyboard shortcuts for all common operations
+4. **Aesthetics**: Modern, clean interface with dark mode
+5. **Accessibility**: High contrast, clear labels, keyboard navigation
+6. **Responsiveness**: Works on any device, any screen size
+7. **User Feedback**: Real-time status updates and visual indicators
+8. **Professional Workflow**: Designed for electronics engineers and VLSI designers
 
 ## 📈 Future Enhancements
 
+### Planned Professional Features (See PROFESSIONAL_FEATURES.md)
+- [ ] Design Rule Checking (DRC)
+- [ ] Technology parameters and design rules
+- [ ] Component library with standard CMOS gates
+- [ ] SPICE netlist extraction
+- [ ] Layout versus schematic (LVS) checking
+- [ ] Measurement and analysis tools
+- [ ] Cross-section view
+- [ ] Export to GDS/CIF formats
+
+### General Enhancements
 - [ ] Component library with standard circuits
 - [ ] File import/export (JSON, SVG)
 - [ ] Schematic to layout conversion

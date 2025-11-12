@@ -390,3 +390,59 @@ button, select, input {
 .canvas-container.draw-mode #mainCanvas {
     cursor: crosshair;
 }
+
+/* Layer Management */
+.layer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.layer-item {
+    display: flex;
+    align-items: center;
+    padding: 6px 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.layer-item:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-color);
+}
+
+.layer-item.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-hover);
+}
+
+.layer-checkbox {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.layer-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.layer-name {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.layer-type {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-left: 4px;
+}
