@@ -97,6 +97,15 @@
             <!-- Properties Panel -->
             <aside class="properties-panel">
                 <h3>Properties</h3>
+                
+                <!-- Layer Management Section -->
+                <div class="property-section">
+                    <h4>Layers</h4>
+                    <div id="layerList" class="layer-list">
+                        <!-- Layers will be dynamically added here -->
+                    </div>
+                </div>
+
                 <div class="property-section">
                     <h4>Grid Settings</h4>
                     <label>
@@ -114,6 +123,16 @@
                 <div class="property-section">
                     <h4>Selection</h4>
                     <div id="selectionInfo">No selection</div>
+                    <div id="measurementInfo" class="measurement-info"></div>
+                </div>
+
+                <div class="property-section">
+                    <h4>Design Rules (λ = 1px)</h4>
+                    <div class="design-rules">
+                        <div class="rule-item">Min Width: <span>2λ</span></div>
+                        <div class="rule-item">Min Spacing: <span>3λ</span></div>
+                        <div class="rule-item">Grid: <span id="lambdaGrid">10λ</span></div>
+                    </div>
                 </div>
 
                 <div class="property-section">
@@ -123,15 +142,12 @@
                         <div><kbd>F9</kbd> Toggle Snap</div>
                         <div><kbd>Ctrl+Z</kbd> Undo</div>
                         <div><kbd>Ctrl+Y</kbd> Redo</div>
-                        <div><kbd>Ctrl+C</kbd> Copy</div>
-                        <div><kbd>Ctrl+V</kbd> Paste</div>
                         <div><kbd>Del</kbd> Delete</div>
                         <div><kbd>V</kbd> Select Tool</div>
                         <div><kbd>R</kbd> Rectangle</div>
-                        <div><kbd>W</kbd> Wire Tool</div>
-                        <div><kbd>C</kbd> Component</div>
+                        <div><kbd>L</kbd> Layers Panel</div>
+                        <div><kbd>1-6</kbd> Switch Layer</div>
                         <div><kbd>Space</kbd> Pan Mode</div>
-                        <div><kbd>Arrows</kbd> Navigate</div>
                     </div>
                 </div>
             </aside>
